@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta name="theme-color" content="#f2f7fb">
+<title>時代華語二｜第六課互動任務</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f2f7fb;color:#24364b;font-family:system-ui,-apple-system,"Noto Sans TC",sans-serif}
+main{max-width:620px;margin:auto;padding:16px 13px 30px}.head{text-align:center;padding:8px 0 14px}h1{font-size:25px;color:#287fb8;margin:0}.sub{font-size:11px;color:#7b8da2;letter-spacing:1px;margin-top:5px}.tag{display:inline-block;background:#e4f2fc;color:#267eb7;border-radius:99px;padding:5px 11px;font-size:12px;font-weight:800;margin-top:9px}
+.card{background:#fff;border:1px solid #dfe8f1;border-radius:17px;padding:16px;margin:10px 0;box-shadow:0 5px 18px #23415b0c}.meta{display:flex;justify-content:space-between;font-size:13px;font-weight:800;color:#62758b}.track{height:7px;border-radius:9px;background:#e8eef5;margin:11px 0 16px;overflow:hidden}.bar{height:100%;width:0;background:#3698d5;transition:width .2s}.kind{font-size:12px;color:#277eae;font-weight:900;letter-spacing:.5px}.prompt{background:#f1f7fc;border-radius:14px;padding:19px 12px;text-align:center;margin-top:8px}.q{font-size:23px;font-weight:900;line-height:1.55;color:#263e58}.py{font-size:14px;color:#60809d;margin-top:5px;line-height:1.5}.en{font-size:13px;color:#74869a;margin-top:5px}.instruction{font-size:13px;color:#6e8298;margin:14px 0 8px;font-weight:750}.answers{display:grid;grid-template-columns:1fr 1fr;gap:9px}.answer{min-height:58px;border:2px solid #d6e2ef;border-radius:12px;background:#f8fbff;color:#2c455f;font-size:17px;font-weight:850;padding:10px 6px;line-height:1.4}.answer:disabled{opacity:1}.answer.good{background:#e1f5e9;border-color:#39a66f;color:#176b43}.answer.bad{background:#fff0f0;border-color:#d66d6d;color:#a23d3d}.feedback{text-align:center;min-height:24px;margin-top:12px;font-weight:850;font-size:14px;color:#267eae}.explain{background:#f2f7fb;border-radius:12px;padding:12px;margin-top:10px;font-size:14px;line-height:1.7}.next{width:100%;border:0;border-radius:12px;padding:14px;background:#287fbd;color:#fff;font-size:16px;font-weight:900;margin-top:12px}.result{text-align:center;padding:20px}.score{font-size:40px;font-weight:950;color:#2684bd;margin:10px}.note{font-size:11px;line-height:1.7;color:#8797a8;text-align:center;margin:14px 5px}.hidden{display:none!important}
+</style></head><body><main>
+<header class="head"><h1>📗 時代華語二｜第六課</h1><div class="sub">MODERN CHINESE 2 · LESSON 6</div><div class="tag">單字＋語法整合任務</div></header>
+<section class="card" id="quiz"><div class="meta"><span id="progress">第 1 / 16 題</span><span id="score">得分：0</span></div><div class="track"><div class="bar" id="bar"></div></div>
+<div class="kind" id="kind"></div><div class="prompt"><div class="q" id="question"></div><div class="py" id="pinyin"></div><div class="en" id="english"></div></div>
+<div class="instruction">請選出最適合的答案 Choose the best answer.</div><div class="answers" id="answers"></div><div class="feedback" id="feedback" aria-live="polite">選擇答案後查看解析。</div><div id="explanation"></div><button class="next hidden" id="next">下一題 →</button></section>
+<section class="card result hidden" id="result"><h2>🎉 第六課任務完成！</h2><div class="score" id="final">100 / 100</div><div id="summary"></div><p class="note">You have completed Lesson 6 practice.</p><button class="next" id="again">重新挑戰</button></section>
+<div class="note">依《時代華語二》生詞及短語索引第375–380頁、語法索引第395–396頁中標示第6-1、6-2課及 Lesson 6 的項目設計。例句為教學練習句，非課本原文。</div>
+</main>
+<script>
+const bank=[
+{type:"單字 VOCABULARY",q:"「不過」的意思是什麼？",p:"búguò",e:"What does 不過 mean?",opts:["but; however","not many","soon after","different"],a:0,why:"不過（búguò）是連接詞，意思是 but。索引標示第6-1課。"},
+{type:"單字 VOCABULARY",q:"「不同」的意思是什麼？",p:"bùtóng",e:"What does 不同 mean?",opts:["similar","different","convenient","ready"],a:1,why:"不同（bùtóng）是形容詞，意思是 different。索引標示第6-1課。"},
+{type:"單字 VOCABULARY",q:"「差不多」的意思是什麼？",p:"chàbuduō",e:"What does 差不多 mean?",opts:["very expensive","almost the same; about the same","not at all","in the future"],a:1,why:"差不多（chàbuduō）表示相似或程度接近，英文是 almost the same / about the same。索引標示第6-1課。"},
+{type:"單字 VOCABULARY",q:"「地板」的意思是什麼？",p:"dìbǎn",e:"What does 地板 mean?",opts:["ceiling","wall","floor","roof"],a:2,why:"地板（dìbǎn）是房間裡人走動的地面，英文是 floor。索引標示第6-1課。"},
+{type:"單字 VOCABULARY",q:"「方法」的意思是什麼？",p:"fāngfǎ",e:"What does 方法 mean?",opts:["method; way","song","score","neighbour"],a:0,why:"方法（fāngfǎ）是做事情的方式，英文是 method 或 way。索引標示第6-1課。"},
+{type:"單字 VOCABULARY",q:"「分數」的意思是什麼？",p:"fēnshù",e:"What does 分數 mean?",opts:["grade; mark; score","floor","meal","singer"],a:0,why:"分數（fēnshù）是考試或比賽得到的分數，英文是 grade、mark 或 score。索引標示第6-1課。"},
+{type:"單字 VOCABULARY",q:"「歌曲」的意思是什麼？",p:"gēqǔ",e:"What does 歌曲 mean?",opts:["dance","song","concert hall","music lesson"],a:1,why:"歌曲（gēqǔ）是可以唱的歌，英文是 song。索引標示第6-1課。"},
+{type:"單字 VOCABULARY",q:"「隔壁」的意思是什麼？",p:"gébì",e:"What does 隔壁 mean?",opts:["far away","next door; next to","underground","in front"],a:1,why:"隔壁（gébì）表示旁邊相鄰的地方或房間，英文是 next door。索引標示第6-1課。"},
+{type:"單字 VOCABULARY",q:"「不少」的意思是什麼？",p:"bùshǎo",e:"What does 不少 mean?",opts:["not a few; quite a lot","not enough","a little","none"],a:0,why:"不少（bùshǎo）表示數量不少，英文是 not a few 或 quite a lot。索引標示第6-2課。"},
+{type:"單字 VOCABULARY",q:"「各式各樣」的意思是什麼？",p:"gèshìgèyàng",e:"What does 各式各樣 mean?",opts:["the same kind","various; all kinds of","very simple","in order"],a:1,why:"各式各樣（gèshìgèyàng）表示種類很多，英文是 various 或 all kinds of。索引標示第6-2課。"},
+{type:"語法 GRAMMAR",q:"晚餐已經＿＿好了，可以吃了。",p:"Wǎncān yǐjīng ___ hǎo le, kěyǐ chī le.",e:"Dinner is ready; we can eat now.",opts:["準備","準備好","準備錯","準備會"],a:1,why:"「V好」表示動作完成，並達到準備妥當的結果。索引第6課對話語法 I：V好／V好了／沒V好／V得好／V不好。"},
+{type:"語法 GRAMMAR",q:"我把他的名字寫＿＿了。",p:"Wǒ bǎ tā de míngzi xiě ___ le.",e:"I wrote his name incorrectly.",opts:["好","錯","會","才"],a:1,why:"「V錯」表示動作做錯了，錯是結果補語。索引第6課對話語法 II。"},
+{type:"語法 GRAMMAR",q:"這個字我練了很多次，現在終於學＿＿了。",p:"Zhège zì wǒ liàn le hěn duō cì, xiànzài zhōngyú xué ___ le.",e:"I practised this character many times and have finally learnt it.",opts:["好","錯","會","才"],a:2,why:"「V會」表示經過學習或練習後，達到會做、會使用的結果。索引第6課對話語法 III。"},
+{type:"語法 GRAMMAR",q:"＿＿你想去哪裡，我＿＿陪你去。",p:"___ nǐ xiǎng qù nǎlǐ, wǒ ___ péi nǐ qù.",e:"Wherever you want to go, I will go with you.",opts:["不但……而且……","哪裡……哪裡……","只要……就……","有時候……有時候……"],a:1,why:"「……QW……就……QW……」表示不論是哪一個人、地方或事情，都依照相同條件回應。索引第6課對話語法 IV。"},
+{type:"語法 GRAMMAR",q:"別擔心，我明天一定＿＿來＿＿。",p:"Bié dānxīn, wǒ míngtiān yídìng ___ lái ___.",e:"Don't worry. I will definitely come tomorrow.",opts:["才","會……的","讓","等……就……"],a:1,why:"句末「會……的」可以用來表示說話者的保證或確信。索引第6課對話語法 V。"},
+{type:"語法 GRAMMAR",q:"＿＿老師來了，我們＿＿開始上課。",p:"___ lǎoshī lái le, wǒmen ___ kāishǐ shàngkè.",e:"When the teacher arrives, we will start class.",opts:["等……，就……","才……","V錯","V好"],a:0,why:"「等……，就……」表示等前面的事情發生後，後面的事情便接著發生。索引第6課對話語法 VI。"},
+{type:"語法 GRAMMAR",q:"這首歌＿＿我想起以前的朋友。",p:"Zhè shǒu gē ___ wǒ xiǎngqǐ yǐqián de péngyǒu.",e:"This song makes me think of an old friend.",opts:["才","讓","不過","不同"],a:1,why:"「讓」可以表示使某人產生某種感受或做某件事。索引第6課短文語法 II。"}
+];
+let list=[],idx=0,points=0,answered=false;const $=id=>document.getElementById(id);
+function shuffle(a){return [...a].sort(()=>Math.random()-.5)}
+function start(){list=shuffle(bank);idx=0;points=0;answered=false;$("quiz").classList.remove("hidden");$("result").classList.add("hidden");render()}
+function render(){const q=list[idx];answered=false;$("progress").textContent=`第 ${idx+1} / ${list.length} 題`;$("score").textContent=`得分：${Math.round(points/list.length*100)}`;$("bar").style.width=((idx+1)/list.length*100)+"%";$("kind").textContent=q.type;$("question").textContent=q.q;$("pinyin").textContent=q.p;$("english").textContent=q.e;$("feedback").textContent="選擇答案後查看解析。";$("explanation").innerHTML="";$("next").classList.add("hidden");$("next").textContent=idx===list.length-1?"查看結果":"下一題 →";$("answers").replaceChildren();q.opts.forEach((v,j)=>{const b=document.createElement("button");b.className="answer";b.textContent=v;b.addEventListener("click",()=>choose(j));$("answers").append(b)})}
+function choose(j){if(answered)return;answered=true;const q=list[idx],ok=j===q.a;if(ok)points++;[...$("answers").children].forEach((b,k)=>{b.disabled=true;if(k===q.a)b.classList.add("good");else if(k===j)b.classList.add("bad")});$("score").textContent=`得分：${Math.round(points/list.length*100)}`;$("feedback").textContent=ok?"✓ 答對了！":"✗ 再看一次正確答案。";$("explanation").innerHTML=`<div class="explain"><b>正確答案：${q.opts[q.a]}</b><br>${q.why}</div>`;$("next").classList.remove("hidden")}
+$("next").addEventListener("click",()=>{if(!answered)return;if(idx===list.length-1){$("quiz").classList.add("hidden");$("result").classList.remove("hidden");$("final").textContent=Math.round(points/list.length*100)+" / 100";$("summary").textContent=`答對 ${points} 題，答錯 ${list.length-points} 題。`}else{idx++;render()}});$("again").addEventListener("click",start);start();
+</script></body></html>
