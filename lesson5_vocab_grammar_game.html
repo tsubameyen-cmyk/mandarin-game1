@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta name="theme-color" content="#f4f8fc">
+<title>時代華語二｜第五課單字與語法任務</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f1f6fb;color:#24364b;font-family:system-ui,-apple-system,"Noto Sans TC",sans-serif}
+main{max-width:620px;margin:auto;padding:16px 13px 28px}.head{text-align:center;padding:9px 0 15px}
+h1{font-size:25px;color:#267eb7;margin:0}.sub{font-size:11px;color:#7b8da2;letter-spacing:1px;margin-top:5px}
+.tag{display:inline-block;background:#e4f2fc;color:#267eb7;border-radius:99px;padding:5px 11px;font-size:12px;font-weight:800;margin-top:9px}
+.card{background:#fff;border:1px solid #dfe8f1;border-radius:17px;padding:16px;margin:10px 0;box-shadow:0 5px 18px #23415b0c}
+.meta{display:flex;justify-content:space-between;font-size:13px;font-weight:800;color:#62758b}
+.track{height:7px;border-radius:9px;background:#e8eef5;margin:11px 0 16px;overflow:hidden}.bar{height:100%;width:0;background:#3698d5;transition:width .2s}
+.kind{font-size:12px;color:#277eae;font-weight:900;letter-spacing:.5px}
+.prompt{background:#f1f7fc;border-radius:14px;padding:20px 12px;text-align:center;margin-top:8px}
+.q{font-size:25px;font-weight:900;line-height:1.5;color:#263e58}.py{font-size:15px;color:#60809d;margin-top:5px}.en{font-size:13px;color:#74869a;margin-top:5px}
+.instruction{font-size:13px;color:#6e8298;margin:14px 0 8px;font-weight:750}
+.answers{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.answer{min-height:57px;border:2px solid #d6e2ef;border-radius:12px;background:#f8fbff;color:#2c455f;font-size:18px;font-weight:850;padding:10px 6px;line-height:1.35}
+.answer small{display:block;font-size:11px;font-weight:600;color:#7b8da2;margin-top:3px}
+.answer:disabled{opacity:1}.answer.good{background:#e1f5e9;border-color:#39a66f;color:#176b43}.answer.bad{background:#fff0f0;border-color:#d66d6d;color:#a23d3d}
+.feedback{text-align:center;min-height:24px;margin-top:12px;font-weight:850;font-size:14px;color:#267eae}
+.explain{background:#f2f7fb;border-radius:12px;padding:12px;margin-top:10px;font-size:14px;line-height:1.7}
+.next{width:100%;border:0;border-radius:12px;padding:14px;background:#287fbd;color:#fff;font-size:16px;font-weight:900;margin-top:12px}
+.secondary{background:#eaf0f6;color:#47617b}
+.result{text-align:center;padding:20px}.score{font-size:40px;font-weight:950;color:#2684bd;margin:10px}
+.note{font-size:11px;line-height:1.7;color:#8797a8;text-align:center;margin:14px 5px}
+.hidden{display:none!important}
+</style>
+</head>
+<body><main>
+<header class="head"><h1>📘 時代華語二｜第五課</h1><div class="sub">MODERN CHINESE 2 · LESSON 5</div><div class="tag">單字＋語法整合任務</div></header>
+<section class="card" id="quiz">
+<div class="meta"><span id="progress">第 1 / 12 題</span><span id="score">得分：0</span></div>
+<div class="track"><div class="bar" id="bar"></div></div>
+<div class="kind" id="kind">VOCABULARY｜單字任務</div>
+<div class="prompt"><div class="q" id="question"></div><div class="py" id="pinyin"></div><div class="en" id="english"></div></div>
+<div class="instruction">請選出最適合的答案 Choose the best answer.</div>
+<div class="answers" id="answers"></div>
+<div class="feedback" id="feedback" aria-live="polite">選擇答案後查看解析。</div>
+<div id="explanation"></div>
+<button class="next hidden" id="next">下一題 →</button>
+</section>
+<section class="card result hidden" id="result">
+<h2>🎉 第五課任務完成！</h2><div class="score" id="final">100 / 100</div><div id="summary"></div>
+<p class="note">You have completed Lesson 5 practice.</p>
+<button class="next" id="again">重新挑戰</button>
+</section>
+<div class="note">本遊戲依《時代華語二》索引第395頁（語法）及第374–393頁（單字）設計。題目例句為教學練習設計，非課本原文。</div>
+</main>
+<script>
+const bank=[
+{type:"單字 VOCABULARY",q:"「白天」的意思是什麼？",p:"báitiān",e:"What does 白天 mean?",opts:["daytime","garden","meal","main gate"],a:0,why:"白天（báitiān）是白天的時間，英文是 daytime。索引標示第5-1課。"},
+{type:"單字 VOCABULARY",q:"「餐」的意思是什麼？",p:"cān",e:"What does 餐 mean?",opts:["bus","meal","grass","feeling"],a:1,why:"餐（cān）是飯食、一次吃飯，英文是 meal。索引標示第5-1課。"},
+{type:"單字 VOCABULARY",q:"「草地」的意思是什麼？",p:"cǎodì",e:"What does 草地 mean?",opts:["lawn; grassland","traffic light","fragrance","front door"],a:0,why:"草地（cǎodì）是長著草的地面，英文是 lawn 或 grassland。索引標示第5-1課。"},
+{type:"單字 VOCABULARY",q:"「感覺」的意思是什麼？",p:"gǎnjué",e:"What does 感覺 mean?",opts:["to decide","to feel; feeling","to translate","to reserve"],a:1,why:"感覺（gǎnjué）可以作動詞，表示 to feel；也可以作名詞，表示 feeling。索引標示第5-1課。"},
+{type:"單字 VOCABULARY",q:"「紅綠燈」的意思是什麼？",p:"hónglǜdēng",e:"What does 紅綠燈 mean?",opts:["elevator","traffic light","street","parking lot"],a:1,why:"紅綠燈（hónglǜdēng）是指揮交通的燈號，英文是 traffic light。索引標示第5-1課。"},
+{type:"單字 VOCABULARY",q:"「花園」的意思是什麼？",p:"huāyuán",e:"What does 花園 mean?",opts:["garden","classroom","hospital","kitchen"],a:0,why:"花園（huāyuán）是種花、種植物的地方，英文是 garden。索引標示第5-2課。"},
+{type:"語法 GRAMMAR",q:"我的腳踏車＿＿弟弟修好了。",p:"Wǒ de jiǎotàchē ___ dìdi xiūhǎo le.",e:"My bicycle was fixed by my younger brother.",opts:["被","只要","有時候","一邊"],a:0,why:"「被」字句表示被動。索引第5課對話語法 I：N（＋Neg）＋被（＋N₂）＋V＋C。"},
+{type:"語法 GRAMMAR",q:"我走＿＿走＿＿，就看到一家便利商店。",p:"Wǒ zǒu ___ zǒu ___, jiù kàndào yì jiā biànlì shāngdiàn.",e:"While I was walking, I saw a convenience store.",opts:["只要……就……","著……著……","有時候……有時候……","還好……要不然……"],a:1,why:"「V著V著，（另一件事）就……」表示一個動作持續時，另一件事發生。索引第5課對話語法 II。"},
+{type:"語法 GRAMMAR",q:"＿＿每天練習，＿＿會說得更好。",p:"___ měitiān liànxí, ___ huì shuō de gèng hǎo.",e:"As long as you practise every day, you will speak better.",opts:["有時候……有時候……","還好……要不然……","只要……就……","一邊……一邊……"],a:2,why:"「只要……就……」表示達成前項條件，後項結果便會發生。索引第5課對話語法 III。"},
+{type:"語法 GRAMMAR",q:"我＿＿坐公車，＿＿走路去上課。",p:"Wǒ ___ zuò gōngchē, ___ zǒulù qù shàngkè.",e:"Sometimes I take the bus; sometimes I walk to class.",opts:["有時候……有時候……","只要……就……","被……","還好……要不然……"],a:0,why:"「有時候……有時候……」表示不同時間會出現不同情況。索引第5課對話語法 IV。"},
+{type:"語法 GRAMMAR",q:"＿＿你提醒我，＿＿我就忘記帶書了。",p:"___ nǐ tíxǐng wǒ, ___ wǒ jiù wàngjì dài shū le.",e:"Luckily you reminded me; otherwise I would have forgotten my book.",opts:["只要……就……","還好……要不然……","有時候……有時候……","一邊……一邊……"],a:1,why:"「還好……，要不然……」表示幸好有某件事，否則可能出現不好的結果。索引第5課短文語法 II。"},
+{type:"語法 GRAMMAR",q:"「A 像 B 一樣」表示什麼？",p:"A xiàng B yíyàng",e:"What does A 像 B 一樣 express?",opts:["A happens before B","A is just like B","A is caused by B","A is different from B"],a:1,why:"「A 像 B 一樣（＋Vs）」表示比較，說明 A 和 B 相似。索引第5課短文語法 IV。"}
+];
+let list=[],idx=0,points=0,answered=false;
+const $=id=>document.getElementById(id);
+function shuffle(a){return [...a].sort(()=>Math.random()-.5)}
+function start(){list=shuffle(bank);idx=0;points=0;answered=false;$("quiz").classList.remove("hidden");$("result").classList.add("hidden");render()}
+function render(){
+ const q=list[idx];answered=false;$("progress").textContent=`第 ${idx+1} / ${list.length} 題`;$("score").textContent=`得分：${points* Math.round(100/list.length)}`;$("bar").style.width=((idx+1)/list.length*100)+"%";
+ $("kind").textContent=q.type;$("question").textContent=q.q;$("pinyin").textContent=q.p;$("english").textContent=q.e;$("feedback").textContent="選擇答案後查看解析。";$("explanation").innerHTML="";$("next").classList.add("hidden");$("next").textContent=idx===list.length-1?"查看結果":"下一題 →";
+ $("answers").replaceChildren();q.opts.forEach((v,j)=>{const b=document.createElement("button");b.className="answer";b.textContent=v;b.addEventListener("click",()=>choose(j));$("answers").append(b)});
+}
+function choose(j){if(answered)return;answered=true;const q=list[idx],ok=j===q.a;if(ok)points++;[...$("answers").children].forEach((b,k)=>{b.disabled=true;if(k===q.a)b.classList.add("good");else if(k===j)b.classList.add("bad")});
+ $("score").textContent=`得分：${Math.round(points/list.length*100)}`;$("feedback").textContent=ok?"✓ 答對了！":"✗ 再看一次正確答案。";$("explanation").innerHTML=`<div class="explain"><b>正確答案：${q.opts[q.a]}</b><br>${q.why}</div>`;$("next").classList.remove("hidden");
+}
+$("next").addEventListener("click",()=>{if(!answered)return;if(idx===list.length-1){$("quiz").classList.add("hidden");$("result").classList.remove("hidden");$("final").textContent=Math.round(points/list.length*100)+" / 100";$("summary").textContent=`答對 ${points} 題，答錯 ${list.length-points} 題。`}else{idx++;render()}});
+$("again").addEventListener("click",start);start();
+</script></body></html>
