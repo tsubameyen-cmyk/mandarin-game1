@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta name="theme-color" content="#f4f8fc">
+<title>華語量詞小學堂｜TOCFL A2</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f2f6fb;color:#203047;font-family:system-ui,-apple-system,"Noto Sans TC",sans-serif}
+main{max-width:560px;margin:auto;padding:18px 14px 30px}.top{text-align:center;margin:8px 0 20px}
+h1{font-size:27px;margin:0;color:#247dbb}.sub{font-size:12px;color:#72849a;letter-spacing:1px;margin-top:5px}
+.card{background:#fff;border:1px solid #e0e8f1;border-radius:18px;padding:18px;box-shadow:0 5px 18px #284c7010;margin:12px 0}
+.meta{display:flex;justify-content:space-between;gap:10px;font-size:13px;font-weight:800;color:#52677f}
+.track{height:8px;background:#e7eef6;border-radius:99px;overflow:hidden;margin:12px 0 18px}.bar{height:100%;width:10%;background:#3698d5;transition:width .2s}
+.prompt{background:#f1f7fc;border-radius:14px;padding:22px 10px;text-align:center}
+.prompt h2{font-size:27px;margin:0 0 7px;color:#247dbb}.pin{font-size:17px;color:#607d99}.en{font-size:14px;color:#73869b;margin-top:8px}
+.label{font-size:14px;font-weight:800;margin:18px 0 9px}
+.answers{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.answer{border:2px solid #d6e2ef;border-radius:13px;background:#f7faff;padding:13px 8px;font-size:24px;font-weight:900;color:#29435d;min-height:60px}
+.answer:disabled{opacity:1}.answer.good{background:#e0f5e9;border-color:#35a66d;color:#187244}.answer.bad{background:#fff0f0;border-color:#d66a6a;color:#a33c3c}
+.feedback{min-height:24px;font-weight:800;margin-top:14px;text-align:center;color:#267baf}
+.explain{background:#f3f7fb;border-radius:12px;padding:13px;margin-top:12px;line-height:1.65;font-size:14px}
+button.next{width:100%;border:0;border-radius:12px;padding:14px;background:#287fbd;color:white;font-size:16px;font-weight:900;margin-top:13px}
+button.restart{border:1px solid #cbd9e8;background:white;color:#45617d;border-radius:11px;padding:10px 14px;font-weight:800}
+.result{text-align:center;padding:18px 5px}.score{font-size:40px;font-weight:900;color:#2585bd;margin:12px}
+footer{text-align:center;color:#91a0b0;font-size:11px;margin-top:18px}
+</style>
+</head>
+<body><main>
+<div class="top"><h1>📚 華語量詞小學堂</h1><div class="sub">MANDARIN CLASSIFIER GAME · TOCFL A2</div></div>
+<section class="card" id="quiz">
+<div class="meta"><span id="count">第 1 / 10 題</span><span id="points">得分：0</span></div>
+<div class="track"><div class="bar" id="bar"></div></div>
+<div class="prompt"><h2 id="question">一＿＿茶</h2><div class="pin" id="pinyin">yì ___ chá</div><div class="en" id="english">A cup of tea</div></div>
+<div class="label">請選擇正確的量詞：</div>
+<div class="answers" id="answers"></div>
+<div class="feedback" id="feedback" aria-live="polite">選擇答案後查看解說。</div>
+<div id="explain"></div>
+<button class="next" id="next" hidden>下一題 →</button>
+</section>
+<section class="card result" id="result" hidden>
+<h2>🎉 練習完成！</h2><div class="score" id="finalScore">100 / 100</div>
+<div id="summary"></div><p style="color:#73869b;font-size:13px">You have completed the classifier practice!</p>
+<button class="next" id="again">重新練習</button>
+</section>
+<footer>單檔離線版 · 不需登入 · 不收集學生資料</footer>
+</main>
+<script>
+const data=[
+{q:"一＿＿茶",p:"yì ___ chá",e:"A cup of tea",a:["杯","本","條","張"],c:0,x:"「杯」用於杯子裡的飲料。",eg:"一杯咖啡、一杯水"},
+{q:"一＿＿雨傘",p:"yì ___ yǔsǎn",e:"An umbrella",a:["張","把","條","件"],c:1,x:"「把」用於有把手的物品。",eg:"一把雨傘、一把椅子"},
+{q:"一＿＿魚",p:"yì ___ yú",e:"A fish",a:["條","杯","本","位"],c:0,x:"「條」用於細長的物品或動物。",eg:"一條魚、一條河"},
+{q:"一＿＿照片",p:"yì ___ zhàopiàn",e:"A photograph",a:["雙","張","瓶","台"],c:1,x:"「張」用於平面的物品。",eg:"一張照片、一張紙"},
+{q:"一＿＿鞋子",p:"yì ___ xiézi",e:"A pair of shoes",a:["件","條","雙","支"],c:2,x:"「雙」用於成對的物品。",eg:"一雙鞋、一雙襪子"},
+{q:"一＿＿書",p:"yì ___ shū",e:"A book",a:["本","杯","封","間"],c:0,x:"「本」用於書籍。",eg:"一本書、一本雜誌"},
+{q:"一＿＿老師",p:"yí ___ lǎoshī",e:"A teacher",a:["張","位","條","台"],c:1,x:"「位」是稱呼人的量詞，表示禮貌。",eg:"一位老師、一位學生"},
+{q:"一＿＿電腦",p:"yì ___ diànnǎo",e:"A computer",a:["台","封","碗","雙"],c:0,x:"「台」常用於機器和電器。",eg:"一台電腦、一台電視"},
+{q:"一＿＿衣服",p:"yí ___ yīfu",e:"A piece of clothing",a:["件","張","瓶","棵"],c:0,x:"「件」常用於衣服。",eg:"一件衣服、一件外套"},
+{q:"一＿＿樹",p:"yì ___ shù",e:"A tree",a:["條","棵","把","封"],c:1,x:"「棵」用於植物。",eg:"一棵樹、一棵白菜"}
+];
+let order=[],i=0,score=0,selected=false;
+const $=id=>document.getElementById(id);
+function start(){order=[...data].sort(()=>Math.random()-.5);i=0;score=0;selected=false;$("quiz").hidden=false;$("result").hidden=true;render()}
+function render(){
+ const q=order[i];selected=false;$("count").textContent=`第 ${i+1} / 10 題`;$("points").textContent=`得分：${score*10}`;$("bar").style.width=((i+1)*10)+"%";
+ $("question").textContent=q.q;$("pinyin").textContent=q.p;$("english").textContent=q.e;$("feedback").textContent="選擇答案後查看解說。";$("explain").innerHTML="";$("next").hidden=true;$("next").textContent=i===9?"查看測驗結果":"下一題 →";
+ $("answers").replaceChildren();q.a.forEach((v,j)=>{let b=document.createElement("button");b.className="answer";b.textContent=v;b.addEventListener("click",()=>choose(j));$("answers").append(b)});
+}
+function choose(j){if(selected)return;selected=true;const q=order[i],ok=j===q.c;if(ok)score++;[...$("answers").children].forEach((b,k)=>{b.disabled=true;if(k===q.c)b.classList.add("good");else if(k===j)b.classList.add("bad")});
+ $("points").textContent=`得分：${score*10}`;$("feedback").textContent=ok?"✓ 答對了！":"✗ 再記一次！";$("explain").innerHTML=`<div class="explain"><b>正確答案：${q.a[q.c]}</b><br>${q.x}<br><span style="color:#607d99">例子：${q.eg}</span></div>`;$("next").hidden=false;
+}
+$("next").addEventListener("click",()=>{if(!selected)return;if(i===9){$("quiz").hidden=true;$("result").hidden=false;$("finalScore").textContent=`${score*10} / 100`;$("summary").textContent=`答對 ${score} 題，答錯 ${10-score} 題。`}else{i++;render()}});
+$("again").addEventListener("click",start);start();
+</script></body></html>
